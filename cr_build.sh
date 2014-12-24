@@ -24,3 +24,7 @@ cd ~/trunk/go-agent-coreos-resources;
 cp credentials ~/.aws/;
 cd ~/trunk/src/scripts/;
 # run ino_core_roller_upload
+
+#TODO add ino_core_roller_upload
+#TODO add update-client
+#TODO add our pfm-management-client
