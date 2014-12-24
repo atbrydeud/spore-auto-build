@@ -10,17 +10,16 @@ cp spore-auto-build/set_inocybe_shared_user_password.sh ./src/scripts
 
 # Don't forget ';'s after each command
 ./chromite/bin/cros_sdk -- /bin/bash -c "
-mkdir ~/.ssh;
 cd ~/trunk/go-agent-coreos-resources;
 cp id_rsa id_rsa.pub ~/.ssh;
-cp update-payload-key.* /usr/share/update-engine;
+cp update-payload-key.* /usr/share/update_engine/;
 cd ~/trunk/src/scripts/;
 pwd;
 ./set_inocybe_shared_user_password.sh;
 echo amd64-usr > .default_board;
-# ./setup_board --force;
-# ./build_packages;
-# ./build_image prod --group alpha;
+./setup_board --force;
+./build_packages;
+./build_image prod --group alpha;
 #install awscli for use of ino_core_roller_upload
 cd ~/trunk/src; mkdir aws-cli; cd aws-cli;
 wget https://bootstrap.pypa.io/get-pip.py;
@@ -35,3 +34,4 @@ exit;
 "
 
 rm ./src/scripts/set_inocybe_shared_user_password.sh
+rm -rf ./go-agent-coreos-resources
