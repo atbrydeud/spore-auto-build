@@ -4,7 +4,7 @@ set -e -x
 
 CROSSDK="./chromite/bin/cros_sdk"
 
-cp spore-auto-build/set_inocybe_shared_user_password.sh ../src/scripts
+cp spore-auto-build/set_inocybe_shared_user_password.sh ./src/scripts
 ./chromite/bin/cros_sdk --create
 
 # Don't forget ';'s after each command
