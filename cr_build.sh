@@ -31,7 +31,7 @@ if [ ! -d ~/trunk/src/third_party/NOS-update-client ]; then
     git clone ssh://go-agent@review.inocybe.com:29418/NOS-update-client
     cd NOS-update-client
     ./build
-    mkdir ~/trunk/third_party/coreos-overlay/app-misc/NOS-update-client/
+    mkdir ~/trunk/src/third_party/coreos-overlay/app-misc/NOS-update-client/
     cp -r ebuild/* ~/trunk/src/third_party/coreos-overlay/app-misc/NOS-update-client/
     rm -rf ~/trunk/src/third_party/NOS-update-client
 fi
