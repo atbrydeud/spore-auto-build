@@ -12,7 +12,7 @@ sudo cp update-payload-key.* /usr/share/update_engine/;
 cd ~/trunk/src/scripts/;
 # Install pfm-management-client
 cd ~/trunk/src/third_party
-git clone http://review.inocybe.com/pfm-management-client
+git clone ssh://go-agent@review.inocybe.com:29418/pfm-management-client
 cd ~/trunk/src/scripts/;
 # set inocybe password
 echo -e '\nSetting inocybe password for user account:inocybe\n'
@@ -25,10 +25,12 @@ echo amd64-usr > .default_board;
 ./build_image prod --group alpha;
 #install aws
 echo -e '\n Installing AWS\n'
-cd ~/trunk/src; mkdir aws-cli; cd aws-cli;
-wget https://bootstrap.pypa.io/get-pip.py;
-sudo python get-pip.py;
-sudo pip install awscli;
+if [ ! -d ~/trunk/src/aws-cli ]; then
+    cd ~/trunk/src; mkdir aws-cli; cd aws-cli;
+    wget https://bootstrap.pypa.io/get-pip.py;
+    sudo python get-pip.py;
+    sudo pip install awscli;
+fi
 cd ~/trunk/go-agent-coreos-resources;
 if [ ! -d ~/.aws/ ]; then
     mkdir ~/.aws
@@ -39,4 +41,3 @@ cd ~/trunk/src/scripts/;
 
 #TODO add ino_core_roller_upload
 #TODO add update-client
-#TODO add our pfm-management-client
