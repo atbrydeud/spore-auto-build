@@ -65,5 +65,11 @@ cp credentials ~/.aws/;
 cd ~/trunk/src/scripts/;
 # run ino_core_roller_upload
 
+# upload latest image to s3
+LATEST_IMAGE_DIR=~/trunk/src/build/images/amd64-usr/latest/
+cd $LATEST_IMAGE_DIR
+qemu-img convert -f raw -O vmdk coreos_production_image.bin coreos.vmdk
+aws s3 cp ~/trunk/src/build/images/amd64-usr/latest/coreos.vmdk s3://spore.images/${COREOS_VERSION_STRING}/coreos-${COREOS_VERSION_STRING}.vmdk
+
 #TODO add ino_core_roller_upload
 #TODO add update-client
