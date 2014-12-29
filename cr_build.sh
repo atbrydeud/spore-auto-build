@@ -21,6 +21,9 @@ wget https://bootstrap.pypa.io/get-pip.py;
 sudo python get-pip.py;
 sudo pip install awscli;
 cd ~/trunk/go-agent-coreos-resources;
+if [ ! -d ~/.aws/ ]; then
+    mkdir ~/.aws
+fi
 cp credentials ~/.aws/;
 cd ~/trunk/src/scripts/;
 # run ino_core_roller_upload
