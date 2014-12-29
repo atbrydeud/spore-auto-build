@@ -6,6 +6,8 @@ set -e -x
 echo -e '\nAdding ssh credentials for review.inocybe.com\n'
 cd ~/trunk/go-agent-coreos-resources;
 cp id_rsa id_rsa.pub ~/.ssh;
+chmod 600 ~/.ssh/id_rsa
+chmod 644 ~/.ssh/id_rsa.pub
 # signing keys
 echo -e '\nAdding signing keys for update_engine\n'
 sudo cp update-payload-key.* /usr/share/update_engine/;
