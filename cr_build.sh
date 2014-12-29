@@ -12,9 +12,15 @@ chmod 644 ~/.ssh/id_rsa.pub
 echo -e '\nAdding signing keys for update_engine\n'
 sudo cp update-payload-key.* /usr/share/update_engine/;
 cd ~/trunk/src/scripts/;
-# Install pfm-management-client
+# Install pfm-management-client and replace updateservicectl
 cd ~/trunk/src/third_party
-git clone ssh://go-agent@review.inocybe.com:29418/pfm-management-client
+if [ ! -d ~/trunk/src/third_party/pfm-management-client ]; then
+    git clone ssh://go-agent@review.inocybe.com:29418/pfm-management-client
+    cd pfm-management-client
+    ./build
+    sudo rm /usr/bin/updateservicectl
+    sudo cp bin/updateservicectl /usr/bin/updateservicectl
+fi
 cd ~/trunk/src/scripts/;
 # set inocybe password
 echo -e '\nSetting inocybe password for user account:inocybe\n'
