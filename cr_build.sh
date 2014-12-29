@@ -65,7 +65,13 @@ cp credentials ~/.aws/;
 cd ~/trunk/src/scripts/;
 # run ino_core_roller_upload
 
+# Necessary for version number
+export SCRIPT_ROOT=~/trunk/src/scripts
+export GCLIENT_ROOT=$(readlink -f "${SCRIPT_ROOT}/../../")
+. "${SCRIPT_ROOT}/common.sh" || exit 1
+
 # upload latest image to s3
+echo -e '\nUploading Image to AWS S3\n'
 LATEST_IMAGE_DIR=~/trunk/src/build/images/amd64-usr/latest/
 cd $LATEST_IMAGE_DIR
 qemu-img convert -f raw -O vmdk coreos_production_image.bin coreos.vmdk
