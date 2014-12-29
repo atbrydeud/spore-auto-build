@@ -22,15 +22,19 @@ if [ ! -d ~/trunk/src/third_party/pfm-management-client ]; then
     ./build
     sudo rm /usr/bin/updateservicectl
     sudo cp bin/updateservicectl /usr/bin/updateservicectl
+    rm -rf ~/trunk/src/third_party/pfm-management-client
 fi
 
 # Get NOS-update-client and place it at ~/trunk/src/coreos
-cd ~/trunk/src/third_party
-git clone ssh://go-agent@review.inocybe.com:29418/NOS-update-client
-cd NOS-update-client
-./build
-mkdir ~/trunk/third_party/coreos-overlay/app-misc/NOS-update-client/
-cp -r ebuild/* ~/trunk/src/third_party/coreos-overlay/app-misc/NOS-update-client/
+if [ ! -d ~/trunk/src/third_party/NOS-update-client ]; then
+    cd ~/trunk/src/third_party
+    git clone ssh://go-agent@review.inocybe.com:29418/NOS-update-client
+    cd NOS-update-client
+    ./build
+    mkdir ~/trunk/third_party/coreos-overlay/app-misc/NOS-update-client/
+    cp -r ebuild/* ~/trunk/src/third_party/coreos-overlay/app-misc/NOS-update-client/
+    rm -rf ~/trunk/src/third_party/NOS-update-client
+fi
 
 # set inocybe password
 cd ~/trunk/src/scripts/;
