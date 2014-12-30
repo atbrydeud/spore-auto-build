@@ -84,9 +84,7 @@ aws s3 cp ~/trunk/src/build/images/amd64-usr/latest/coreos.vmdk ${S3_URL}
 # Create file for latest build version number and link
 echo -e '\nSaving s3 url and version number\n'
 cd ~/trunk
-if [ -d ~/trunk/src/aws-cli ]; then
-    rm build.txt
-fi
+rm -rf build.txt
 echo ${COREOS_VERSION_STRING} > build.txt
 echo ${HTTP_URL} >> build.txt
 
