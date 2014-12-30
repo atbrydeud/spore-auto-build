@@ -56,12 +56,13 @@ echo amd64-usr > .default_board;
 
 #install aws
 echo -e '\n Installing AWS\n'
-if [ ! -d ~/trunk/src/aws-cli ]; then
-    cd ~/trunk/src; mkdir aws-cli; cd aws-cli;
-    wget https://bootstrap.pypa.io/get-pip.py;
-    sudo python get-pip.py;
-    sudo pip install awscli;
+if [ -d ~/trunk/src/aws-cli ]; then
+    rm -rf ~/trunk/src/aws-cli
 fi
+cd ~/trunk/src; mkdir aws-cli; cd aws-cli;
+wget https://bootstrap.pypa.io/get-pip.py;
+sudo python get-pip.py;
+sudo pip install awscli;
 cd ~/trunk/go-agent-coreos-resources;
 if [ ! -d ~/.aws/ ]; then
     mkdir ~/.aws
@@ -69,6 +70,7 @@ fi
 cp credentials ~/.aws/;
 cd ~/trunk/src/scripts/;
 # run ino_core_roller_upload
+# Needs update server running
 
 # Necessary for version number
 export SCRIPT_ROOT=~/trunk/src/scripts
@@ -79,9 +81,10 @@ export GCLIENT_ROOT=$(readlink -f "${SCRIPT_ROOT}/../../")
 echo -e '\nUploading Image to AWS S3\n'
 LATEST_IMAGE_DIR=~/trunk/src/build/images/amd64-usr/latest/
 cd $LATEST_IMAGE_DIR
+VERSION_STRING=`echo $COREOS_VERSION_STRING | sed -r 's/[\+]/-/g'`
 S3_BUCKET="spore.images"
-S3_URL="s3://${S3_BUCKET}/${COREOS_VERSION_STRING}/coreos-${COREOS_VERSION_STRING}.vmdk"
-HTTP_URL="http://${S3_BUCKET}.s3.amazonaws.com/${COREOS_VERSION_STRING}/coreos-${FLAGS_version}.vmdk"
+S3_URL="s3://${S3_BUCKET}/${VERSION_STRING}/coreos-${VERSION_STRING}.vmdk"
+HTTP_URL="http://${S3_BUCKET}.s3.amazonaws.com/${VERSION_STRING}/coreos-${VERSION_STRING}.vmdk"
 qemu-img convert -f raw -O vmdk coreos_production_image.bin coreos.vmdk
 aws s3 cp ~/trunk/src/build/images/amd64-usr/latest/coreos.vmdk ${S3_URL}
 
