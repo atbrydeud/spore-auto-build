@@ -79,7 +79,21 @@ export GCLIENT_ROOT=$(readlink -f "${SCRIPT_ROOT}/../../")
 echo -e '\nUploading Image to AWS S3\n'
 LATEST_IMAGE_DIR=~/trunk/src/build/images/amd64-usr/latest/
 cd $LATEST_IMAGE_DIR
+S3_BUCKET="spore.images"
+S3_URL="s3://${S3_BUCKET}/${COREOS_VERSION_STRING}/coreos-${COREOS_VERSION_STRING}.vmdk"
+HTTP_URL="http://${S3_BUCKET}.s3.amazonaws.com/${COREOS_VERSION_STRING}/coreos-${FLAGS_version}.vmdk"
 qemu-img convert -f raw -O vmdk coreos_production_image.bin coreos.vmdk
-aws s3 cp ~/trunk/src/build/images/amd64-usr/latest/coreos.vmdk s3://spore.images/${COREOS_VERSION_STRING}/coreos-${COREOS_VERSION_STRING}.vmdk
+aws s3 cp ~/trunk/src/build/images/amd64-usr/latest/coreos.vmdk ${S3_URL}
+
+# Create file for latest build version number and link
+echo -e '\nSaving s3 url and version number\n'
+cd ~/trunk
+if [ -d ~/trunk/src/aws-cli ]; then
+    rm build.txt
+fi
+echo ${COREOS_VERSION_STRING} > build.txt
+echo ${HTTP_URL} >> build.txt
+
+
 
 #TODO add ino_core_roller_upload
