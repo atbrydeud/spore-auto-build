@@ -16,28 +16,30 @@ cd ~/trunk/src/scripts/;
 
 # Install pfm-management-client and replace updateservicectl
 cd ~/trunk/src/third_party
-if [ ! -d ~/trunk/src/third_party/pfm-management-client ]; then
-    git clone ssh://go-agent@review.inocybe.com:29418/pfm-management-client
-    cd pfm-management-client
-    ./build
-    sudo rm /usr/bin/updateservicectl
-    sudo cp bin/updateservicectl /usr/bin/updateservicectl
+if [ -d ~/trunk/src/third_party/pfm-management-client ]; then
     rm -rf ~/trunk/src/third_party/pfm-management-client
 fi
+git clone ssh://go-agent@review.inocybe.com:29418/pfm-management-client
+cd pfm-management-client
+./build
+sudo rm /usr/bin/updateservicectl
+sudo cp bin/updateservicectl /usr/bin/updateservicectl
+rm -rf ~/trunk/src/third_party/pfm-management-client
 
 # Get NOS-update-client and place it at ~/trunk/src/coreos
-if [ ! -d ~/trunk/src/third_party/NOS-update-client ]; then
-    cd ~/trunk/src/third_party
-    git clone ssh://go-agent@review.inocybe.com:29418/NOS-update-client
-    cd NOS-update-client
-    ./build
-    if [ -d ~/trunk/src/third_party/coreos-overlay/app-misc/NOS-update-client/ ]; then
-        rm -rf ~/trunk/src/third_party/coreos-overlay/app-misc/NOS-update-client/
-    fi
-    mkdir ~/trunk/src/third_party/coreos-overlay/app-misc/NOS-update-client/
-    cp -r ebuild/* ~/trunk/src/third_party/coreos-overlay/app-misc/NOS-update-client/
+if [ -d ~/trunk/src/third_party/NOS-update-client ]; then
     rm -rf ~/trunk/src/third_party/NOS-update-client
 fi
+cd ~/trunk/src/third_party
+git clone ssh://go-agent@review.inocybe.com:29418/NOS-update-client
+cd NOS-update-client
+./build
+if [ -d ~/trunk/src/third_party/coreos-overlay/app-misc/NOS-update-client/ ]; then
+    rm -rf ~/trunk/src/third_party/coreos-overlay/app-misc/NOS-update-client/
+fi
+mkdir ~/trunk/src/third_party/coreos-overlay/app-misc/NOS-update-client/
+cp -r ebuild/* ~/trunk/src/third_party/coreos-overlay/app-misc/NOS-update-client/
+rm -rf ~/trunk/src/third_party/NOS-update-client
 
 # set inocybe password
 cd ~/trunk/src/scripts/;
@@ -81,4 +83,3 @@ qemu-img convert -f raw -O vmdk coreos_production_image.bin coreos.vmdk
 aws s3 cp ~/trunk/src/build/images/amd64-usr/latest/coreos.vmdk s3://spore.images/${COREOS_VERSION_STRING}/coreos-${COREOS_VERSION_STRING}.vmdk
 
 #TODO add ino_core_roller_upload
-#TODO add update-client
