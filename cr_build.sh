@@ -16,9 +16,7 @@ cd ~/trunk/src/scripts/;
 
 # Install pfm-management-client and replace updateservicectl
 cd ~/trunk/src/third_party
-if [ -d ~/trunk/src/third_party/pfm-management-client ]; then
-    rm -rf ~/trunk/src/third_party/pfm-management-client
-fi
+rm -rf ~/trunk/src/third_party/pfm-management-client
 git clone ssh://go-agent@review.inocybe.com:29418/pfm-management-client
 cd pfm-management-client
 ./build
@@ -27,16 +25,13 @@ sudo cp bin/updateservicectl /usr/bin/updateservicectl
 rm -rf ~/trunk/src/third_party/pfm-management-client
 
 # Get NOS-update-client and place it at ~/trunk/src/coreos
-if [ -d ~/trunk/src/third_party/NOS-update-client ]; then
-    rm -rf ~/trunk/src/third_party/NOS-update-client
-fi
+rm -rf ~/trunk/src/third_party/NOS-update-client
 cd ~/trunk/src/third_party
 git clone ssh://go-agent@review.inocybe.com:29418/NOS-update-client
 cd NOS-update-client
 ./build
-if [ -d ~/trunk/src/third_party/coreos-overlay/app-misc/NOS-update-client/ ]; then
-    rm -rf ~/trunk/src/third_party/coreos-overlay/app-misc/NOS-update-client/
-fi
+
+rm -rf ~/trunk/src/third_party/coreos-overlay/app-misc/NOS-update-client/
 mkdir ~/trunk/src/third_party/coreos-overlay/app-misc/NOS-update-client/
 cp -r ebuild/* ~/trunk/src/third_party/coreos-overlay/app-misc/NOS-update-client/
 rm -rf ~/trunk/src/third_party/NOS-update-client
@@ -56,9 +51,7 @@ echo amd64-usr > .default_board;
 
 #install aws
 echo -e '\n Installing AWS\n'
-if [ -d ~/trunk/src/aws-cli ]; then
-    rm -rf ~/trunk/src/aws-cli
-fi
+rm -rf ~/trunk/src/aws-cli
 cd ~/trunk/src; mkdir aws-cli; cd aws-cli;
 wget https://bootstrap.pypa.io/get-pip.py;
 sudo python get-pip.py;
