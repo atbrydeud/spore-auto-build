@@ -64,9 +64,9 @@ cp credentials ~/.aws/;
 cd ~/trunk/src/scripts/;
 # run ino_core_roller_upload
 # Needs update server running
-export UPDATECTL_SERVER="http://172.19.0.7:8080"
-./ino_core_roller_upload
 rm -rf ~/trunk/update_build.txt
+export UPDATECTL_SERVER="http://172.19.0.7:8080"
+./ino_core_roller_upload --image_dir ~/trunk/src/build/images/amd64-usr/latest/
 mv update_build.txt ~/trunk/
 
 # Necessary for version number
