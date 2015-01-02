@@ -64,6 +64,8 @@ cp credentials ~/.aws/;
 cd ~/trunk/src/scripts/;
 # run ino_core_roller_upload
 # Needs update server running
+export UPDATECTL_SERVER="http://172.19.0.7:8080"
+./ino_core_roller_upload
 
 # Necessary for version number
 export SCRIPT_ROOT=~/trunk/src/scripts
