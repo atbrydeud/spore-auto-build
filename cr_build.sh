@@ -66,6 +66,8 @@ cd ~/trunk/src/scripts/;
 # Needs update server running
 export UPDATECTL_SERVER="http://172.19.0.7:8080"
 ./ino_core_roller_upload
+rm -rf ~/trunk/update_build.txt
+mv update_build.txt ~/trunk/
 
 # Necessary for version number
 export SCRIPT_ROOT=~/trunk/src/scripts
