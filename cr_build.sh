@@ -13,7 +13,7 @@ chmod 644 ~/.ssh/id_rsa.pub
 echo -e '\nAdding signing keys for update_engine\n'
 sudo cp update-payload-key.* /usr/share/update_engine/;
 # add to cloud-config to be added in image
-sudo cp update-payload-key.pub.pem ~/trunk/src/coreos-overlay/app-misc/cloud-config/files/;
+sudo cp update-payload-key.pub.pem ~/trunk/src/third_party/coreos-overlay/app-misc/cloud-config/files/;
 cd ~/trunk/src/scripts/;
 
 # Install pfm-management-client and replace updateservicectl
