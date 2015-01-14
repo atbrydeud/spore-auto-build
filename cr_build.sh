@@ -99,4 +99,4 @@ echo ${HTTP_URL} >> build.txt
 #TODO add ino_core_roller_upload
 
 # cleanup
-rm ~/trunk/src/coreos-overlay/app-misc/cloud-config/files/update-payload-key.pub.pem
+rm ~/trunk/src/third_party/coreos-overlay/app-misc/cloud-config/files/update-payload-key.pub.pem
