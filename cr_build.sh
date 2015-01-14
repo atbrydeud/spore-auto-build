@@ -2,6 +2,9 @@
 
 set -e -x
 
+# Add inocybe to /etc/portage/categories
+echo "inocybe" >> /etc/portage/categories
+
 # ssh credentials
 echo -e '\nAdding ssh credentials for review.inocybe.com\n'
 cd ~/trunk/go-agent-coreos-resources;
