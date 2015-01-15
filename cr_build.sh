@@ -4,6 +4,8 @@ set -e -x
 
 # Add inocybe to /etc/portage/categories
 sudo echo "inocybe" | sudo tee -a /etc/portage/categories
+sudo touch /build/amd64-usr/etc/portage/categories
+sudo echo "inocybe" | sudo tee -a /build/amd64-usr/etc/portage/categories
 
 # ssh credentials
 echo -e '\nAdding ssh credentials for review.inocybe.com\n'
